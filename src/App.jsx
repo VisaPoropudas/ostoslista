@@ -64,6 +64,12 @@ function App() {
     saveFavoritesData(newFavorites);
   }
 
+  function handleClearPurchased() {
+    const newShoppingList = shoppingItems.filter(item => !item.purchased);
+    setShoppingItems(newShoppingList);
+    saveShoppingData(newShoppingList);
+  }
+
   function saveShoppingData(items) {
     localStorage.setItem('shopping-list', JSON.stringify(items));
   }
@@ -94,6 +100,7 @@ function App() {
         setSelectedTab={setSelectedTab}
         shoppingItems={shoppingItems}
         onManageFavorites={() => setShowFavoritesManager(!showFavoritesManager)}
+        onClearPurchased={handleClearPurchased}
       />
 
       {showFavoritesManager && (

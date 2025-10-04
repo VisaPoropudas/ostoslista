@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { ConfirmModal } from "./ConfirmModal";
 
 export function FavoritesManager(props) {
     const { favorites, onAddFavorite, onRemoveFavorite } = props;
     const [newFavorite, setNewFavorite] = useState("");
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [favoriteToDelete, setFavoriteToDelete] = useState(null);
 
     const handleAdd = () => {
         if (newFavorite.trim()) {
@@ -15,6 +18,24 @@ export function FavoritesManager(props) {
         if (e.key === 'Enter') {
             handleAdd();
         }
+    };
+
+    const handleRemoveClick = (favoriteName) => {
+        setFavoriteToDelete(favoriteName);
+        setShowDeleteModal(true);
+    };
+
+    const handleConfirmRemove = () => {
+        if (favoriteToDelete) {
+            onRemoveFavorite(favoriteToDelete);
+        }
+        setShowDeleteModal(false);
+        setFavoriteToDelete(null);
+    };
+
+    const handleCancelRemove = () => {
+        setShowDeleteModal(false);
+        setFavoriteToDelete(null);
     };
 
     return (
@@ -39,7 +60,7 @@ export function FavoritesManager(props) {
                         <div key={index} className="favorite-item-card">
                             <span>{favorite}</span>
                             <button
-                                onClick={() => onRemoveFavorite(favorite)}
+                                onClick={() => handleRemoveClick(favorite)}
                                 className="remove-favorite-btn icon-btn"
                                 title="Poista suosikeista"
                             >
@@ -49,6 +70,13 @@ export function FavoritesManager(props) {
                     ))
                 )}
             </div>
+            <ConfirmModal
+                isOpen={showDeleteModal}
+                title="Poista suosikki"
+                message={favoriteToDelete ? `Haluatko varmasti poistaa suosikin "${favoriteToDelete}"?` : ''}
+                onConfirm={handleConfirmRemove}
+                onCancel={handleCancelRemove}
+            />
         </div>
     );
 }

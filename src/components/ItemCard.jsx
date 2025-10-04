@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { ConfirmModal } from "./ConfirmModal";
 
 export function ShoppingItemCard(props) {
     const { item, handleDeleteItem, handleTogglePurchased, handleEditItem, onAddFavorite, favorites } = props;
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(item.name);
     const [editQuantity, setEditQuantity] = useState(item.quantity);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleSaveEdit = () => {
         handleEditItem(item.id, {
@@ -18,6 +20,19 @@ export function ShoppingItemCard(props) {
         setEditName(item.name);
         setEditQuantity(item.quantity);
         setIsEditing(false);
+    };
+
+    const handleDeleteClick = () => {
+        setShowDeleteModal(true);
+    };
+
+    const handleConfirmDelete = () => {
+        handleDeleteItem(item.id);
+        setShowDeleteModal(false);
+    };
+
+    const handleCancelDelete = () => {
+        setShowDeleteModal(false);
     };
 
     if (isEditing) {
@@ -82,13 +97,20 @@ export function ShoppingItemCard(props) {
                     </button>
                 )}
                 <button
-                    onClick={() => handleDeleteItem(item.id)}
+                    onClick={handleDeleteClick}
                     className="delete-btn icon-btn"
                     title="Poista"
                 >
                     🗑
                 </button>
             </div>
+            <ConfirmModal
+                isOpen={showDeleteModal}
+                title="Poista tuote"
+                message={`Haluatko varmasti poistaa tuotteen "${item.name}"${item.quantity ? ` (${item.quantity})` : ''}?`}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+            />
         </div>
     );
 }
