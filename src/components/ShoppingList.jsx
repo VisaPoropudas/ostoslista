@@ -5,7 +5,7 @@ export function ShoppingList(props) {
 
     const filteredItems = selectedTab === 'Kaikki' ?
         shoppingItems :
-        selectedTab === 'Korissa' ?
+        selectedTab === 'Kori' ?
             shoppingItems.filter(item => item.purchased) :
             shoppingItems.filter(item => !item.purchased);
 

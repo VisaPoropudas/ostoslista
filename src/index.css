@@ -111,10 +111,12 @@ hr {
 
 .shopping-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   border: none;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .shopping-item.purchased {
@@ -129,6 +131,8 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .item-content {
@@ -151,17 +155,24 @@ hr {
 .item-buttons {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
-.item-buttons button {
+.icon-btn {
   border: none !important;
   box-shadow: none !important;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
-.item-buttons button:hover {
+.icon-btn:hover {
   transform: none;
   opacity: 0.7;
 }
@@ -184,8 +195,6 @@ hr {
 .favorite-btn {
   color: #f59e0b;
   background: rgba(245, 158, 11, 0.1) !important;
-  font-size: 1rem;
-  padding: 0.25rem 0.5rem;
 }
 
 .delete-btn {
@@ -225,28 +234,19 @@ hr {
 .edit-buttons {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.edit-buttons button {
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0.375rem 0.75rem;
-}
-
-.edit-buttons button:hover {
-  transform: none;
-  opacity: 0.7;
+  flex-wrap: nowrap;
 }
 
 .save-btn {
   color: var(--background-primary);
   background: #10b981 !important;
+  font-size: 1.5rem;
 }
 
 .cancel-btn {
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1) !important;
+  font-size: 1.5rem;
 }
 
 /* Input Section Styles */
@@ -374,7 +374,7 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
+  padding: 0.2rem 0.5rem;
   background: var(--background-primary);
   border: 1px solid var(--border-primary);
   border-radius: var(--border-radius-small);
@@ -387,18 +387,11 @@ hr {
 }
 
 .remove-favorite-btn {
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0.375rem 0.75rem;
   color: #ef4444;
   background: rgba(239, 68, 68, 0.1) !important;
-  font-size: 0.875rem;
-  white-space: nowrap;
-}
-
-.remove-favorite-btn:hover {
-  transform: none;
-  opacity: 0.7;
+  font-size: 1.25rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
 }
 
 .no-favorites {
@@ -440,16 +433,12 @@ hr {
     gap: 1rem;
   }
 
-  .item-buttons {
-    flex-wrap: nowrap;
+  .shopping-item {
+    padding: 1rem;
   }
 
   .edit-inputs {
     flex-direction: row;
-  }
-
-  .edit-buttons {
-    flex-wrap: nowrap;
   }
 
   .input-container {

@@ -1,6 +1,6 @@
 export function Tabs(props) {
     const { shoppingItems, selectedTab, setSelectedTab, onManageFavorites } = props;
-    const tabs = ['Ostoslista', 'Korissa'/*, 'Kaikki'*/];
+    const tabs = ['Lista', 'Kori'/*, 'Kaikki'*/];
 
     return (
         <nav className="tab-container">
@@ -8,7 +8,7 @@ export function Tabs(props) {
                 {tabs.map((tab, tabIndex) => {
                     const numberOfItems = tab === 'Kaikki' ?
                         shoppingItems.length :
-                        tab === 'Ostoslista' ?
+                        tab === 'Lista' ?
                             shoppingItems.filter(item => !item.purchased).length :
                             shoppingItems.filter(item => item.purchased).length;
                     return (

@@ -38,11 +38,11 @@ export function ShoppingItemCard(props) {
                     />
                 </div>
                 <div className="edit-buttons">
-                    <button onClick={handleSaveEdit} className="save-btn">
-                        Tallenna
+                    <button onClick={handleSaveEdit} className="save-btn icon-btn" title="Tallenna">
+                        ✓
                     </button>
-                    <button onClick={handleCancelEdit} className="cancel-btn">
-                        Peruuta
+                    <button onClick={handleCancelEdit} className="cancel-btn icon-btn" title="Peruuta">
+                        ✕
                     </button>
                 </div>
             </div>
@@ -60,24 +60,33 @@ export function ShoppingItemCard(props) {
             <div className="item-buttons">
                 <button
                     onClick={() => handleTogglePurchased(item.id)}
-                    className={item.purchased ? 'unpurchase-btn' : 'purchase-btn'}
+                    className={`icon-btn ${item.purchased ? 'unpurchase-btn' : 'purchase-btn'}`}
+                    title={item.purchased ? 'Merkitse ostamattomaksi' : 'Merkitse ostetuksi'}
                 >
-                    {item.purchased ? 'Peruuta' : 'Korissa'}
+                    {item.purchased ? '↩' : '✓'}
                 </button>
-                <button onClick={() => setIsEditing(true)} className="edit-btn">
-                    Muokkaa
+                <button
+                    onClick={() => setIsEditing(true)}
+                    className="edit-btn icon-btn"
+                    title="Muokkaa"
+                >
+                    ✎
                 </button>
                 {!favorites.includes(item.name) && (
                     <button
                         onClick={() => onAddFavorite(item.name)}
-                        className="favorite-btn"
+                        className="favorite-btn icon-btn"
                         title="Tallenna suosikiksi"
                     >
                         ⭐
                     </button>
                 )}
-                <button onClick={() => handleDeleteItem(item.id)} className="delete-btn">
-                    Poista
+                <button
+                    onClick={() => handleDeleteItem(item.id)}
+                    className="delete-btn icon-btn"
+                    title="Poista"
+                >
+                    🗑
                 </button>
             </div>
         </div>

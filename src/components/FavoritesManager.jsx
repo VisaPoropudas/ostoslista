@@ -40,9 +40,10 @@ export function FavoritesManager(props) {
                             <span>{favorite}</span>
                             <button
                                 onClick={() => onRemoveFavorite(favorite)}
-                                className="remove-favorite-btn"
+                                className="remove-favorite-btn icon-btn"
+                                title="Poista suosikeista"
                             >
-                                Poista
+                                ✕
                             </button>
                         </div>
                     ))

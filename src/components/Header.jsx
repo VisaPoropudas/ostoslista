@@ -7,10 +7,10 @@ export function Header(props) {
     return (
         <header>
             <h1>🛒 Ostoslista</h1>
-            <div className="header-stats">
+            {/*<div className="header-stats">
                 <p>Yhteensä: {totalItems} tuotetta</p>
-                <p>Ostettavana: {unpurchasedItems} | Korissa: {purchasedItems}</p>
-            </div>
+                <p>Ostokset: {unpurchasedItems} | Kori: {purchasedItems}</p>
+            </div>*/}
         </header>
     )
 }
