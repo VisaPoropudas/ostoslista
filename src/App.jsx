@@ -100,7 +100,6 @@ function App() {
         setSelectedTab={setSelectedTab}
         shoppingItems={shoppingItems}
         onManageFavorites={() => setShowFavoritesManager(!showFavoritesManager)}
-        onClearPurchased={handleClearPurchased}
       />
 
       {showFavoritesManager && (
@@ -119,12 +118,15 @@ function App() {
         handleEditItem={handleEditItem}
         onAddFavorite={handleAddFavorite}
         favorites={favorites}
+        onClearPurchased={handleClearPurchased}
       />
 
-      <ShoppingInput
-        handleAddItem={handleAddItem}
-        favorites={favorites}
-      />
+      {selectedTab !== 'Kori' && (
+        <ShoppingInput
+          handleAddItem={handleAddItem}
+          favorites={favorites}
+        />
+      )}
     </>
   )
 }

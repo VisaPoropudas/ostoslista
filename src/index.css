@@ -113,6 +113,25 @@ header h1 {
   opacity: 0.8;
 }
 
+.clear-cart-btn-bottom {
+  border: none;
+  box-shadow: none;
+  padding: 0.875rem 1.25rem;
+  cursor: pointer;
+  background: #dc2626;
+  color: white;
+  border-radius: var(--border-radius-small);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.clear-cart-btn-bottom:hover {
+  transform: translate(0);
+  opacity: 0.9;
+}
+
 hr {
   opacity: 0.4;
 }
