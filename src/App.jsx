@@ -50,6 +50,11 @@ function App() {
     saveShoppingData(newShoppingList);
   }
 
+  function handleReorderItems(reorderedItems) {
+    setShoppingItems(reorderedItems);
+    saveShoppingData(reorderedItems);
+  }
+
   function handleAddFavorite(favoriteName) {
     if (!favorites.includes(favoriteName) && favoriteName.trim()) {
       const newFavorites = [...favorites, favoriteName.trim()];
@@ -119,6 +124,7 @@ function App() {
         onAddFavorite={handleAddFavorite}
         favorites={favorites}
         onClearPurchased={handleClearPurchased}
+        onReorderItems={handleReorderItems}
       />
 
       {selectedTab !== 'Kori' && (

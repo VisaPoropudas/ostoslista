@@ -3,8 +3,9 @@ import { ShoppingItemCard } from "./ItemCard";
 import { ConfirmModal } from "./ConfirmModal";
 
 export function ShoppingList(props) {
-    const { shoppingItems, selectedTab, onClearPurchased } = props;
+    const { shoppingItems, selectedTab, onClearPurchased, onReorderItems } = props;
     const [showClearModal, setShowClearModal] = useState(false);
+    const [draggedItemId, setDraggedItemId] = useState(null);
 
     const filteredItems = selectedTab === 'Kaikki' ?
         shoppingItems :
@@ -27,6 +28,41 @@ export function ShoppingList(props) {
         setShowClearModal(false);
     };
 
+    const handleDragStart = (e, itemId) => {
+        setDraggedItemId(itemId);
+        e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleDragOver = (e, targetItemId) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+
+        if (draggedItemId === null || draggedItemId === targetItemId) {
+            return;
+        }
+
+        const draggedIndex = shoppingItems.findIndex(item => item.id === draggedItemId);
+        const targetIndex = shoppingItems.findIndex(item => item.id === targetItemId);
+
+        if (draggedIndex === -1 || targetIndex === -1) {
+            return;
+        }
+
+        const newItems = [...shoppingItems];
+        const [draggedItem] = newItems.splice(draggedIndex, 1);
+        newItems.splice(targetIndex, 0, draggedItem);
+
+        onReorderItems(newItems);
+    };
+
+    const handleDrop = (e, targetItemId) => {
+        e.preventDefault();
+    };
+
+    const handleDragEnd = () => {
+        setDraggedItemId(null);
+    };
+
     return (
         <div className="shopping-list-container">
             {filteredItems.length === 0 ? (
@@ -40,6 +76,10 @@ export function ShoppingList(props) {
                             key={item.id}
                             item={item}
                             {...props}
+                            onDragStart={handleDragStart}
+                            onDragOver={handleDragOver}
+                            onDrop={handleDrop}
+                            onDragEnd={handleDragEnd}
                         />
                     )
                 })

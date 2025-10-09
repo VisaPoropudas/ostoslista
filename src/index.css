@@ -152,6 +152,13 @@ hr {
   gap: 0.75rem;
   border: none;
   padding: 0.75rem;
+  cursor: move;
+  transition: opacity 200ms, transform 200ms;
+}
+
+.shopping-item.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
 }
 
 .shopping-item.purchased {

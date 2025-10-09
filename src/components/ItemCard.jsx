@@ -2,11 +2,12 @@ import { useState } from "react";
 import { ConfirmModal } from "./ConfirmModal";
 
 export function ShoppingItemCard(props) {
-    const { item, handleDeleteItem, handleTogglePurchased, handleEditItem, onAddFavorite, favorites } = props;
+    const { item, handleDeleteItem, handleTogglePurchased, handleEditItem, onAddFavorite, favorites, onDragStart, onDragOver, onDrop, onDragEnd } = props;
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(item.name);
     const [editQuantity, setEditQuantity] = useState(item.quantity);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
 
     const handleSaveEdit = () => {
         handleEditItem(item.id, {
@@ -64,8 +65,25 @@ export function ShoppingItemCard(props) {
         );
     }
 
+    const handleDragStart = (e) => {
+        setIsDragging(true);
+        onDragStart(e, item.id);
+    };
+
+    const handleDragEnd = () => {
+        setIsDragging(false);
+        onDragEnd();
+    };
+
     return (
-        <div className={`card shopping-item ${item.purchased ? 'purchased' : ''}`}>
+        <div
+            className={`card shopping-item ${item.purchased ? 'purchased' : ''} ${isDragging ? 'dragging' : ''}`}
+            draggable={!isEditing}
+            onDragStart={handleDragStart}
+            onDragOver={(e) => onDragOver(e, item.id)}
+            onDrop={(e) => onDrop(e, item.id)}
+            onDragEnd={handleDragEnd}
+        >
             <div className="item-info">
                 <div className="item-content">
                     <span className="item-name">{item.name}</span>
